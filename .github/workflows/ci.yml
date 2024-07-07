@@ -27,10 +27,26 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@main
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rsync lowdown entr
+          apt list --installed > package_list.txt
+
+      - name: Cache apt packages
+        uses: actions/cache@v3
+        with:
+          path: /var/cache/apt
+          key: ${{ runner.os }}-apt-${{ hashFiles('package_list.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+
       - name: build application
         run: make build
 
   deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
