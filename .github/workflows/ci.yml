@@ -25,22 +25,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
-        uses: actions/checkout@main
+      # - name: checkout repo
+      #   uses: actions/checkout@v4
 
-      - name: Cache apt packages
-        uses: actions/cache@v3
+      # - name: Cache apt packages
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: /var/cache/apt
+      #     key: ${{ runner.os }}-apt-${{ hashFiles('package_list.txt') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-apt-
+
+      - name: Install and cache dependencies
+        uses: actions/checkout@v4
+        uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          path: /var/cache/apt
-          key: ${{ runner.os }}-apt-${{ hashFiles('package_list.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-apt-
+          packages: rsync lowdown entr
+          version: 1.0
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync lowdown entr
-          apt list --installed > package_list.txt
+      # - name: Install dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y rsync lowdown entr
+      #     apt list --installed > package_list.txt
 
       - name: Build application
         run: make build
