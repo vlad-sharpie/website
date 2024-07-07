@@ -1,9 +1,32 @@
-# About `barf`
+# About this site
 
-barf is a minimal and suckless-inspired blog generator. It is a tweaked and slightly patched version of Karl Bartel's fantastic [blog.sh](https://github.com/karlb/karl.berlin).
+I wanted a simple site to showcase what I've done, mainly for myself to remember in the future.
 
-## Why?
+## How it's built
 
-This project was created by me, [Bradley Taunt](https://btxx.org), out of frustration with overly complex and bloated blogging options. I tried *so many* "minimal" generators but each one ended up having some glaring issue or heavy reliance on dependencies. 
+All the hard work was done by Bradley Taunt and his website generator [barf](https://barf.btxx.org).
 
-I wanted to have a system that I could easily replicate on any Linux machine. Something that didn't require me to download half the internet just to get up and running. I'm a sucker for keeping things simple.
+This website is hosted on GitHub pages using an [actions workflow](https://github.com/vlad-sharpie/website/blob/main/.github/workflows/ci.yml). It's very simple but means in the future I can just write a blog post in one file, push it to the repo and the changes will be live in under a minute.
+
+I also got it to switch between a dark and light theme based on your OS choice, though my firefox doesn't seem to respect it, so that's great.
+
+```
+<meta name="color-scheme" content="dark light">
+<style>
+    body {
+        transition: background-color 0.3s, color 0.3s;
+    }
+    /* Default to light mode */
+    body {
+        background-color: white;
+        color: black;
+    }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-color: black;
+            color: white;
+        }
+    }
+</style>
+```
