@@ -36,8 +36,10 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-apt-
 
-      - name: Install and cache dependencies
+      - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: Install and cache dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: rsync lowdown entr
