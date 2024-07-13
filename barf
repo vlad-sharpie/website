@@ -126,6 +126,20 @@ EOF
 	echo '</rss>'
 }
 
+# write_page() {
+# 	filename=$1
+# 	directory=$(echo $(basename "$filename" .md))
+# 	$(mkdir -p build/$directory)
+# 	target=$(echo "$filename" | sed -r 's|\w+/(.*).md|build/\1/index.html|')
+# 	created=$(echo $(head -3 "$filename" | tail -1))
+# 	title=$2
+
+# 	$MARKDOWNTEST "$filename" | \
+# 		cat header.html - |\
+# 		sed "s|{{TITLE}}|$title|" \
+# 		> "$target" && cat footer.html >> "$target"
+# }
+
 write_page() {
 	filename=$1
 	directory=$(echo $(basename "$filename" .md))
@@ -134,10 +148,11 @@ write_page() {
 	created=$(echo $(head -3 "$filename" | tail -1))
 	title=$2
 
-	eval "$MARKDOWN $filename" | \
-		cat header.html - |\
-		sed "s|{{TITLE}}|$title|" \
-		> "$target" && cat footer.html >> "$target"
+	{
+		cat header.html
+		eval "$MARKDOWN $filename"
+		cat footer.html
+	} | sed "s|{{TITLE}}|$title|" > "$target"
 }
 
 rm -rf build && mkdir build

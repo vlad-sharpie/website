@@ -4,9 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="color-scheme" content="dark light">
-	<link rel="icon" href="data:,">
+	<link rel="icon" type="image/jpg" href="/public/images/favicon.svg"/>
 	<title>{{TITLE}}</title>
-	<link rel="shortcut icon" type="image/jpg" href="public/images/favicon.svg"/>
 	<link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Atom feed for blog posts" />
 	<link href="/rss.xml" type="application/rss+xml" rel="alternate" title="RSS feed for blog posts" />
 	<style>
@@ -19,14 +18,14 @@
     		@media screen and (prefers-color-scheme: dark) {
 				a:link {color: #FFA657;}
 				a:visited {color: #79C0FF;}
-				a:active {color: #FF7B72;}
+				a:hover {color: #FF7B72;}
+				a:active {color: #79C0FF;}
     		}
 		}
 
 		body {
 			transition: background-color 0.3s, color 0.3s;
 		}
-		/* Default to light mode */
 		body {
 			background-color: white;
 			color: black;
